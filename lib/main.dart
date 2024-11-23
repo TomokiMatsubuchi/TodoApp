@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'views/todo_list_page.dart';
+import 'views/todos/todo_list_page.dart';
 import 'store/todo_list_store.dart';
 
 void main() {
   runApp(
     MultiProvider(providers: [
-      ChangeNotifierProvider(create: (context) => TodoListStore()),
+      ChangeNotifierProvider(create: (context) => Todos()),
     ], child: MyTodoApp()),
   );
 }

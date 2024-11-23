@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/store/todo_list_store.dart';
+
+import '../../views/todos/todo_edit_page.dart';
 
 class ListContentComponent extends StatelessWidget {
-  final String todo;
+  final Todo todo;
 
   const ListContentComponent({super.key, required this.todo});
 
@@ -9,7 +12,7 @@ class ListContentComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        title: Text(todo),
+        title: Text(todo.title),
         // 編集ボタンと削除ボタンを追加
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
@@ -18,6 +21,12 @@ class ListContentComponent extends StatelessWidget {
               icon: const Icon(Icons.edit),
               onPressed: () {
                 // 編集ボタンをタップしたときの処理
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) {
+                    // 遷移先の画面としてリスト追加画面を指定
+                    return TodoEditPage(todo: todo);
+                  }),
+                );
               },
             ),
             IconButton(

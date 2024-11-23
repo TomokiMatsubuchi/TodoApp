@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import '../store/todo_list_store.dart';
-import './todo_add_page.dart';
-import '../components/todos/list_content_component.dart';
+import '../../store/todo_list_store.dart';
+import 'todo_add_page.dart';
+import '../../components/todos/list_content_component.dart';
 import 'package:provider/provider.dart';
 
 // リスト一覧画面用Widget
 class TodoListPage extends StatelessWidget {
+  const TodoListPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('リスト一覧'),
+        title: const Text('Todo一覧'),
       ),
-      body: Consumer<TodoListStore>(builder: (context, todoListStore, child) {
+      body: Consumer<Todos>(builder: (context, Todos, child) {
         return ListView.builder(
-          itemCount: todoListStore.todoList.length,
+          itemCount: Todos.todoList.length,
           itemBuilder: (context, index) {
-            return ListContentComponent(todo: todoListStore.todoList[index]);
+            return ListContentComponent(todo: Todos.todoList[index]);
           },
         );
       }),
@@ -26,7 +28,7 @@ class TodoListPage extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) {
               // 遷移先の画面としてリスト追加画面を指定
-              return TodoAddPage();
+              return const TodoAddPage();
             }),
           );
         },
