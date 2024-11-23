@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'views/todo_list_page.dart';
+import 'store/todo_list_store.dart';
 
 void main() {
-  runApp(MyTodoApp());
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context) => TodoListStore()),
+    ], child: MyTodoApp()),
+  );
 }
 
 class MyTodoApp extends StatelessWidget {

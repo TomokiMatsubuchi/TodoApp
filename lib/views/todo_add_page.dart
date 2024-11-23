@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../store/todo_list_store.dart';
+import './todo_list_page.dart';
 
 // リスト追加画面用Widget
 class TodoAddPage extends StatefulWidget {
@@ -16,10 +20,11 @@ class _TodoAddPageState extends State<TodoAddPage> {
     });
   }
 
-  void addTodoListAndPageBack() {
-    // "pop"で前の画面に戻る
-    // "pop"の引数から前の画面にデータを渡す
-    Navigator.of(context).pop(_text);
+  void updateTodoList() {
+    // TodoListStoreの状態を更新する
+    final todoList = Provider.of<TodoListStore>(context, listen: false);
+    todoList.addTodoList(_text);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -56,7 +61,7 @@ class _TodoAddPageState extends State<TodoAddPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                 ),
-                onPressed: addTodoListAndPageBack,
+                onPressed: updateTodoList,
                 child:
                     const Text('リスト追加', style: TextStyle(color: Colors.white)),
               ),
