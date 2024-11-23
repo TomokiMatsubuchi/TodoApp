@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/components/todos/modal_delete_component.dart';
 import 'package:todoapp/store/todo_list_store.dart';
 
 import '../../views/todos/todo_edit_page.dart';
@@ -32,7 +33,12 @@ class ListContentComponent extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () {
-                // 削除ボタンをタップしたときの処理
+                // 削除確認ダイアログを表示
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) =>
+                      ModalDeleteComponent(todo: todo),
+                );
               },
             ),
           ],

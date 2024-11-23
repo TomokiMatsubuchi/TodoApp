@@ -19,6 +19,7 @@ class FormComponent extends StatefulWidget {
 }
 
 class FormComponentState extends State<FormComponent> {
+  // コントローラーを作成してformを管理する
   late final TextEditingController _titleController;
   late final TextEditingController _memoController;
   late final TextEditingController _linkController;
