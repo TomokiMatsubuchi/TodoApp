@@ -1,16 +1,20 @@
-# todoapp
+## Flutterの使い方
 
-A new Flutter project.
+### デバイス確認
+```bash
+flutter devices
+```
 
-## Getting Started
+### 各デバイス毎の起動方法
+```bash
+flutter run -d your_device_id
+```
 
-This project is a starting point for a Flutter application.
+### flutterのビルドキャッシュの削除
+※主にiosでホットリロードが効かなくなった時に実行する
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter clean
+flutter pub get
+flutter run
+```
