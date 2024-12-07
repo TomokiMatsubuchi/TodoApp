@@ -27,14 +27,29 @@ class FormComponentState extends State<FormComponent> {
   final Todo _todo = Todo(
     title: '',
     memo: '',
-    link: '',
+    link: 'https://example.com',
   );
+
+  // エラーメッセージを保持する変数を追加
+  String? _linkError;
 
   void _updateTextState({String? title, String? memo, String? link}) {
     setState(() {
       if (title?.isNotEmpty == true) _todo.title = title!;
       if (memo?.isNotEmpty == true) _todo.memo = memo!;
-      if (link?.isNotEmpty == true) _todo.link = link!;
+      if (link != null && link.isNotEmpty) {
+        try {
+          Todo(
+            title: '',
+            memo: '',
+            link: link,
+          );
+          _todo.link = link;
+          _linkError = null; // エラーをクリア
+        } on FormatException catch (e) {
+          _linkError = e.message;
+        }
+      }
     });
   }
 
@@ -126,6 +141,11 @@ class FormComponentState extends State<FormComponent> {
             onChanged: (String value) {
               _updateTextState(link: value);
             },
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              errorText: _linkError, // エラーメッセージを表示
+              hintText: 'https://example.com', // プレースホルダーとして例を表示
+            ),
           ),
           const SizedBox(
             height: 16,
@@ -138,7 +158,9 @@ class FormComponentState extends State<FormComponent> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
               ),
-              onPressed: () => widget.submit(_todo),
+              onPressed: _linkError != null || _todo.title.isEmpty
+                  ? null // エラーがある場合やタイトルが空の場合はボタンを無効化
+                  : () => widget.submit(_todo),
               child: Text(widget.submitText,
                   style: const TextStyle(color: Colors.white)),
             ),

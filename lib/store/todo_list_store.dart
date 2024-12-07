@@ -4,13 +4,25 @@ class Todo {
   int id = 0;
   String title;
   String memo;
-  String link;
+  late String link;
+  final String? imageUrl;
 
   Todo({
     required this.title,
     required this.memo,
-    required this.link,
-  });
+    required String link,
+    this.imageUrl,
+  }) {
+    try {
+      final uri = Uri.parse(link);
+      if (!uri.hasScheme || !uri.hasAuthority) {
+        throw const FormatException('無効なURL形式です。正しい形式を入力してください。');
+      }
+      this.link = link;
+    } catch (e) {
+      throw const FormatException('無効なURL形式です。正しい形式を入力してください。');
+    }
+  }
 }
 
 class Todos extends ChangeNotifier {
